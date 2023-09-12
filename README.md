@@ -58,20 +58,18 @@ export async function down(database: Kysely<unknown>): Promise<void> {
   await database.schema.dropTable('your_table_name');
 }
 
-```
-Usage: migrator [options] [command]
+```bash
+## Options
 
-Kysely Migrator
+- `-V, --version`   Output the version number.
+- `-h, --help`      Display help for the command.
 
-Options:
-  -V, --version   output the version number
-  -h, --help      display help for command
+## Commands
 
-Commands:
-  migrate:create  Generate a migration file
-  migrate         Migrate to the latest version
-  rollback        Roll back the last migration
-  run:migrations  Runs all migrations that have not yet been run
-  help [command]  display help for command
+- `migrate:create`  Generate a migration file.
+- `migrate`         Migrate to the latest version.
+- `rollback`        Roll back the last migration.
+- `run:migrations`  Runs all migrations that have not yet been run.
+- `help [command]`  Display help for a specific command.
 
 ```
