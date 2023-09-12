@@ -60,6 +60,9 @@ export async function down(database: Kysely<unknown>): Promise<void> {
 
 ```
 
+
+Help: 
+
 ```bash
 ## Options
 
