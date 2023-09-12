@@ -1,6 +1,6 @@
 # kysely-migrator-cli
 
-A light weight hassle free migration cli for 
+A light weight hassle free migration cli for [Kysely](https://github.com/koskimas/kysely)
 
 ## Table of Contents
 
@@ -73,4 +73,5 @@ Commands:
   rollback        Roll back the last migration
   run:migrations  Runs all migrations that have not yet been run
   help [command]  display help for command
+
 ```
