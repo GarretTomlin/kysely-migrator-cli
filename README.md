@@ -58,6 +58,8 @@ export async function down(database: Kysely<unknown>): Promise<void> {
   await database.schema.dropTable('your_table_name');
 }
 
+```
+
 ```bash
 ## Options
 
