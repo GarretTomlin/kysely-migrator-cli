@@ -12,7 +12,6 @@ A light weight hassle free migration cli for [Kysely](https://github.com/koskima
 
 ## Installation
 
-Explain how users can install or set up your project. Provide clear, step-by-step instructions.
 
 ```bash
 # Install Kysely-migrator globally:
