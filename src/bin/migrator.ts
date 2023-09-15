@@ -1,31 +1,19 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
+import { build } from 'gluegun';
+import generateMigration from '../commands/migrate-create';
+import migrate from '../commands/migrate';
+import migrateDown from '../commands/rollback';
+import runAllMigrations from '../commands/run-all-migrations';
 
-import { program } from "commander";
-import { generateMigration } from "../commands/migrate-create";
-import { migrateDown } from "../commands/rollback";
-import { runAllMigrations } from "../commands/run-all-migrations";
-import { migrateToLatest } from "../commands/migrate";
+const program = build()
+  .brand('Kysely Migrator')
+  .src(`${__dirname}/../commands`)
+  .command(generateMigration)
+  .command(migrate)
+  .command(migrateDown)
+  .command(runAllMigrations)
+  .checkForUpdates(2)
+  .help()
+  .create();
 
-program
-  .version('1.0.0')
-  .description('Kysely Migrator')
-  .command('migrate:create', 'Generate a migration file')
-  .command('migrate', 'Migrate to the latest version')
-  .command('rollback', 'Roll back the last migration')
-  .command('run:migrations', 'Runs all migrations that have not yet been run')
-  .parse(process.argv);
-
-// const command = program.args[0];
-
-// if (command === 'migrate:create') {
-//   generateMigration();
-// } else if (command === 'migrate') {
-//   migrateToLatest();
-// } else if (command === 'rollback') {
-//   migrateDown();
-// } else if (command === 'run:migrations') {
-//   runAllMigrations();
-// } else {
-//   console.error('Unknown command:', command);
-//   process.exit(1);
-// }
+program.run();

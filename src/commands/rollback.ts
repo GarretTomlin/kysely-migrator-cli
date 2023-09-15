@@ -1,5 +1,6 @@
-import * as path from 'path';
-import pkg from 'pg';
+import { GluegunCommand } from 'gluegun';
+import path from 'path';
+import { Pool } from 'pg';
 import { promises as fs } from 'fs';
 import {
   Kysely,
@@ -10,51 +11,57 @@ import {
 import { config } from 'dotenv';
 import getConfig from '../config/migrator-config';
 
-const migratorConfig = getConfig();
-config();
-const destination = migratorConfig.migrationFolder;
-const databaseUrl = migratorConfig.databaseUrl.replace('${DATABASE_URL}', process.env.DATABASE_URL);
-const { Pool } = pkg;
+const migrateDown: GluegunCommand = {
+  name: 'migrate:down',
+  alias: ['down'],
+  description: 'Roll back the latest migration',
+  run: async (toolbox) => {
+    const { print } = toolbox;
 
-export async function migrateDown() {
-  const database = new Kysely({
-    dialect: new PostgresDialect({
-      pool: new Pool({
-        connectionString: databaseUrl,
-      }),
-    }),
-  });
+    try {
+      const migratorConfig = getConfig();
+      config();
+      const destination = migratorConfig.migrationFolder;
+      const databaseUrl = migratorConfig.databaseUrl.replace('${DATABASE_URL}', process.env.DATABASE_URL);
 
-  const migrator = new Migrator({
-    db: database,
-    provider: new FileMigrationProvider({
-      fs,
-      path,
-      migrationFolder: path.join(__dirname, destination),
-    }),
-  });
+      const database = new Kysely<unknown>({
+        dialect: new PostgresDialect({
+          pool: new Pool({
+            connectionString: databaseUrl,
+          }),
+        }),
+      });
 
-  const { error, results } = await migrator.migrateDown();
+      const migrator = new Migrator({
+        db: database,
+        provider: new FileMigrationProvider({
+          fs,
+          path,
+          migrationFolder: path.join(__dirname, destination),
+        }),
+      });
 
-  results?.forEach((migrationResult) => {
-    if (migrationResult.status === 'Success') {
-      console.log(
-        `Migration "${migrationResult.migrationName}" was rolled back successfully`,
-      );
-    } else if (migrationResult.status === 'Error') {
-      console.error(
-        `Failed to roll back migration "${migrationResult.migrationName}"`,
-      );
+      const { results } = await migrator.migrateDown();
+
+      results?.forEach((migrationResult) => {
+        if (migrationResult.status === 'Success') {
+          print.success(
+            `Migration "${migrationResult.migrationName}" was rolled back successfully`,
+          );
+        } else if (migrationResult.status === 'Error') {
+          print.error(
+            `Failed to roll back migration "${migrationResult.migrationName}"`,
+          );
+        } else if (migrationResult.status === 'NotExecuted') {
+          print.info('No migration to roll back');
+        }
+      });
+
+      await database.destroy();
+    } catch (error) {
+      print.error('Failed to roll back migrations:');
     }
-  });
+  },
+};
 
-  if (error) {
-    console.error('Failed to migrate down');
-    console.error(error);
-    process.exit(1);
-  }
-
-  await database.destroy();
-}
-
-migrateDown();
+export default migrateDown;

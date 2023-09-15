@@ -1,4 +1,5 @@
-import * as path from 'path';
+import { GluegunCommand } from 'gluegun';
+import path from 'path';
 import { promises as fs } from 'fs';
 import {
   Kysely,
@@ -9,42 +10,58 @@ import {
 import pkg from 'pg';
 import getConfig from '../config/migrator-config';
 
-const migratorConfig = getConfig();
+const runAllMigrations: GluegunCommand = {
+  name: 'migrate:latest',
+  alias: ['latest'],
+  description: 'Run all pending migrations',
+  run: async (toolbox) => {
+    const { print } = toolbox;
 
-const destination = migratorConfig.migrationFolder;
-const databaseUrl = migratorConfig.databaseUrl.replace('${DATABASE_URL}', process.env.DATABASE_URL);
-const { Pool } = pkg;
+    try {
+      const migratorConfig = getConfig();
+      const destination = migratorConfig.migrationFolder;
+      const databaseUrl = migratorConfig.databaseUrl.replace('${DATABASE_URL}', process.env.DATABASE_URL);
+      const { Pool } = pkg;
 
-export async function runAllMigrations() {
-  
-  const database = new Kysely({
-    dialect: new PostgresDialect({
-      pool: new Pool({
-        connectionString: databaseUrl,
-      }),
-    }),
-  });
+      const database = new Kysely({
+        dialect: new PostgresDialect({
+          pool: new Pool({
+            connectionString: databaseUrl,
+          }),
+        }),
+      });
 
-  const migrator = new Migrator({
-    db: database,
-    provider: new FileMigrationProvider({
-      fs,
-      path,
-      migrationFolder: path.join(__dirname, destination),
-    }),
-  });
+      const migrator = new Migrator({
+        db: database,
+        provider: new FileMigrationProvider({
+          fs,
+          path,
+          migrationFolder: path.join(__dirname, destination),
+        }),
+      });
 
-  const migrations = await migrator.getMigrations();
-  const migrationFiles = migrations.map((migration) => migration.name);
+      const { error, results } = await migrator.migrateToLatest();
 
-  if (migrationFiles.length === 0) {
-    console.log('No migration files found.');
-  } else {
-    console.log('Migration files:');
-    migrationFiles.forEach((file) => {
-      console.log(file);
-    });
-  }
-}
+      results?.forEach((migrationResult) => {
+        if (migrationResult.status === 'Success') {
+          print.success(
+            `Migration "${migrationResult.migrationName}" was executed successfully`,
+          );
+        } else if (migrationResult.status === 'Error') {
+          print.error(
+            `Failed to execute migration "${migrationResult.migrationName}"`,
+          );
+        }
+      });
 
-runAllMigrations();
+      if (error) {
+        print.error('Failed to run `migrateToLatest`');
+        print.error(error);
+      }
+    } catch (error) {
+      print.error('Failed to run all migrations:');
+    }
+  },
+};
+
+export default runAllMigrations;
