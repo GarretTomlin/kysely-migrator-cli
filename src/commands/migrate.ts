@@ -55,6 +55,9 @@ const migrate: GluegunCommand = {
             `Failed to execute migration "${migrationResult.migrationName}"`
           );
         }
+        else{
+          print.info('nothing to migrate')
+        }
       });
 
       if (error) {
@@ -80,7 +83,7 @@ function extractErrorMessage(error: any): string {
       return `Table "${match[1]}" already exists.`;
     }
   }
-  return 'An error occurred during migration, please make sure you provided a database connection.';
+  return 'An error occurred during migration, please make sure DATABASE_URL is define in your env';
 }
 
 

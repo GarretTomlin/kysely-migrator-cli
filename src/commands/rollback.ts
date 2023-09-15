@@ -52,7 +52,7 @@ const migrateDown: GluegunCommand = {
           print.error(
             `Failed to roll back migration "${migrationResult.migrationName}"`,
           );
-        } else if (migrationResult.status === 'NotExecuted') {
+        } else {
           print.info('No migration to roll back');
         }
       });

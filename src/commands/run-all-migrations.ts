@@ -52,6 +52,9 @@ const runAllMigrations: GluegunCommand = {
             `Failed to execute migration "${migrationResult.migrationName}"`,
           );
         }
+        else{
+          print.info('nothing to migrate')
+        }
       });
 
       if (error) {

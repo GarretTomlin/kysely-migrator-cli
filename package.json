@@ -2,7 +2,7 @@
   "name": "kysely-migrator-cli",
   "module": "commonjs",
   "main": "./src/bin/migrator.ts",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "license": "MIT",
   "repository": {
     "type": "git",
