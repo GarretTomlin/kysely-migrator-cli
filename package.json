@@ -2,7 +2,7 @@
   "name": "kysely-migrator-cli",
   "module": "commonjs",
   "main": "./src/bin/migrator.ts",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -48,5 +48,9 @@
     "@types/jest": "^29.5.4",
     "jest": "^29.7.0"
   },
-  "keywords": ["database", "migrations", "kysely"]
+  "keywords": [
+    "database",
+    "migrations",
+    "kysely"
+  ]
 }
