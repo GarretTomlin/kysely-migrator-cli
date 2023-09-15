@@ -4,6 +4,10 @@
   "main": "./src/bin/migrator.ts",
   "version": "1.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GarretTomlin/kysely-migrator-cli.git"
+  },
   "scripts": {
     "build": "tsup  src/**/*.ts --format cjs,esm --dts",
     "release": "yarn run build && changeset publish",
@@ -43,5 +47,6 @@
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "jest": "^29.7.0"
-  }
+  },
+  "keywords": ["database", "migrations", "kysely"]
 }
