@@ -8,6 +8,7 @@ A light weight hassle free migration cli for [Kysely](https://github.com/koskima
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
 - [Usage](#usage)
+- [NPM Package](#npm-package)
   
 
 ## Installation
@@ -17,6 +18,9 @@ A light weight hassle free migration cli for [Kysely](https://github.com/koskima
 # Install Kysely-migrator globally:
 npm install -g kysely-migrator
 
+or 
+
+yarn add global kysely-migrator
 ```
 
 # Usage
@@ -28,7 +32,7 @@ To use create a json file call `migrator.json`
 ```json
 {
     "databaseUrl": "${DATABASE_URL}", // leave has is, there should be an env variable with the same name(your database connection)
-    "migrationFolder": "../../src/database/migrations" // path to your migrations folder
+    "migrationFolder": "src/database/migrations" // path to your migrations folder
 }
 ```
 
@@ -77,3 +81,7 @@ Help:
 - `help [command]`  Display help for a specific command.
 
 ```
+
+# NPM Package
+
+[migrator](https://www.npmjs.com/package/kysely-migrator-cli?activeTab=readme)

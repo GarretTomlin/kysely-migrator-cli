@@ -80,7 +80,7 @@ function extractErrorMessage(error: any): string {
       return `Table "${match[1]}" already exists.`;
     }
   }
-  return 'An error occurred during migration.';
+  return 'An error occurred during migration, please make sure you provided a database connection.';
 }
 
 
