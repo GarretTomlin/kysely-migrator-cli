@@ -40,13 +40,6 @@ jobs:
           DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/mydb'
         run: yarn test
 
-      - name: Run packageChanges and publishPackage
-        run: |
-          if [ ${{ job.status }} == 'success' ]; then
-            echo "Build job succeeded, running packageChanges and publishPackage"
-          else
-            echo "Build job failed, skipping packageChanges and publishPackage"
-          fi
 
   packageChanges:
     runs-on: ubuntu-latest

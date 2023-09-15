@@ -34,7 +34,7 @@ To use create a json file call `migrator.json`
 
 `And it's that simple go straight ahead and create your migrations`
 
-`migrator migrate:create --name test`
+`migrator migrate:create test`
 
 
 Output:
