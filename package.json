@@ -1,5 +1,5 @@
 {
-  "name": "kysely-migrator",
+  "name": "kysely-migrator-cli",
   "module": "commonjs",
   "main": "./src/bin/migrator.ts",
   "version": "1.0.0",
