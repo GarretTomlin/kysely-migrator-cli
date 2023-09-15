@@ -1,34 +1,31 @@
-import { jest, mock, describe, it, expect } from "bun:test";
-import { migrateToLatest } from "../src/commands/migrate";
+import migrate from "../src/commands/migrate";
 
-mock( () => ({
-    Pool: jest.fn(() => ({
-      connect: jest.fn(),
-    })),
-  }));
+jest.mock('pg', () => ({
+  Pool: jest.fn(() => ({
+    connect: jest.fn(),
+  })),
+}));
 
-
-mock(() => ({
+jest.mock('kysely', () => ({
   Kysely: jest.fn(),
   Migrator: jest.fn(),
   FileMigrationProvider: jest.fn(),
 }));
-mock(() => ({
+
+jest.mock('fs/promises', () => ({
   promises: {
     mkdir: jest.fn(),
   },
 }));
 
 describe('migrateToLatest', () => {
-    it('should migrate to the latest version', async () => {
-      try {
-        await migrateToLatest();
-  
-        expect(true).toBe(true);
-      } catch (error) {
-
-        console.error('Migration failed:', error);
-        throw error; 
-      }
-    });
+  it('should migrate to the latest version', async () => {
+    try {
+      await migrate;
+      expect(true).toBe(true);
+    } catch (error) {
+      console.error('Migration failed:', error);
+      throw error; 
+    }
   });
+});

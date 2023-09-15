@@ -1,4 +1,4 @@
 {
     "databaseUrl": "${DATABASE_URL}",
-    "migrationFolder": "../tests/migrations"
+    "migrationFolder": "../../tests/migrations"
 }
