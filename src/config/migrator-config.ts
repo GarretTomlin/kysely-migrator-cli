@@ -1,10 +1,9 @@
 import fs from 'fs';
-import  path from 'path';
-
+import path from 'path';
 
 function getConfig() {
   try {
-    const configPath = path.resolve(__dirname, '../../migrator.json');
+    const configPath = path.resolve(process.cwd(), 'migrator.json');
     const rawConfig = fs.readFileSync(configPath, 'utf8');
     return JSON.parse(rawConfig);
   } catch (error) {
@@ -13,4 +12,5 @@ function getConfig() {
   }
 }
 
-export default getConfig
+
+export default getConfig;
