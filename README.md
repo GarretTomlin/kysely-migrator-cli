@@ -21,20 +21,20 @@ npm install -g kysely-migrator
 
 # Usage
 
-`kysely-migrator-cli` is a **library** designed to assist you in creating your own migration script. It does aim to provide an executables command.
+`kysely-migrator-cli` is a **library** designed to assist you in creating your own migration script. It does provides executables command.
 
 To use create a json file call `migrator.json` 
 
 ```json
 {
     "databaseUrl": "${DATABASE_URL}", // leave has is, there should be an env variable with the same name(your database connection)
-    "migrationFolder": "./src/database/migrations" // path to your migrations folder
+    "migrationFolder": "../../src/database/migrations" // path to your migrations folder
 }
 ```
 
-And it is that simple go straight ahead and create your migrations
+`And it's that simple go straight ahead and create your migrations`
 
-kysely-migrator migrator:create --name test
+`kysely-migrator migrator:create --name test`
 
 
 Output:
