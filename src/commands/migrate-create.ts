@@ -18,7 +18,7 @@ const generateMigration: GluegunCommand = {
 
     const config = getConfig();
     const destination = config.migrationFolder;
-    const migrationFolder = path.join(__dirname, destination);
+    const migrationFolder = path.join(process.cwd(), destination);
     const timestamp = new Date().toISOString().replace(/[^0-9]/g, '');
     const fileName = `${timestamp}-${migrationName}.ts`;
 

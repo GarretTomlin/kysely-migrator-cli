@@ -36,7 +36,7 @@ const runAllMigrations: GluegunCommand = {
         provider: new FileMigrationProvider({
           fs,
           path,
-          migrationFolder: path.join(__dirname, destination),
+          migrationFolder: path.join(process.cwd(), destination),
         }),
       });
 
