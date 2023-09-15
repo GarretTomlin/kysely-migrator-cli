@@ -76,8 +76,8 @@ Help:
 
 - `migrate:create`  Generate a migration file.
 - `migrate`         Migrate to the latest version.
-- `rollback`        Roll back the last migration.
-- `run:migrations`  Runs all migrations that have not yet been run.
+- `migrate:down`    Roll back the last migration.
+- `migrate:latest`  Runs all migrations that have not yet been run.
 - `help [command]`  Display help for a specific command.
 
 ```
