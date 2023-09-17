@@ -2,6 +2,12 @@
 
 A light weight hassle free migration cli for [Kysely](https://github.com/koskimas/kysely)
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/kysely-migrator-cli?activeTab=readme">
+<img alt="npm" src="https://img.shields.io/npm/dw/kysely-migrator-cli">
+  </a>
+</p>
+
 ## Table of Contents
 
 - [kysely-migrator-cli](#kysely-migrator-cli)
