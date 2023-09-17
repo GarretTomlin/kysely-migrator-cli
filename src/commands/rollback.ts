@@ -57,7 +57,7 @@ const migrateDown: GluegunCommand = {
         }
       });
 
-      await database.destroy();
+      await database.destroy;
     } catch (error) {
       print.error('Failed to roll back migrations:');
     }

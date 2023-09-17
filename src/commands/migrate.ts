@@ -86,5 +86,4 @@ function extractErrorMessage(error: any): string {
   return 'An error occurred during migration, please make sure DATABASE_URL is define in your env';
 }
 
-
 export default migrate;
